@@ -1,4 +1,4 @@
-#VERSION: 1.00
+#VERSION: 1.10
 #AUTHORS: b0nk
 
 # Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,10 @@ class rarbg(object):
         # get JSON
 
         what = urllib.unquote(what)
-        params = urllib.urlencode({'mode': 'search', 'search_string': what, 'ranked': 0, 'limit': 100, 'sort': 'seeders', 'format': 'json_extended', 'token': token})
+        categories = "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48"
+        params = urllib.urlencode({'mode': 'search', 'search_string': what, 'ranked': 0,
+                                   'category': categories, 'limit': 100, 'sort': 'seeders',
+                                   'format': 'json_extended', 'token': token})
 
         response = retrieve_url(baseURL % params)
         j = json.loads(response)
