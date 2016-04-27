@@ -32,56 +32,62 @@ import json
 
 
 class rarbg(object):
-    url = 'https://rarbg.to'
-    name = 'rarbg (torrentApi)'
+  url = 'https://rarbg.to'
+  name = 'rarbg (torrentApi)'
 
-    supported_categories = {'all': ''}
+  supported_categories = {'all': ''}
 
-    def __init__(self):
-        pass
+  def __init__(self):
+    pass
 
-    def search(self, what, cat='all'):
-        # Get token
-        baseURL = "https://torrentapi.org/pubapi_v2.php?%s"
-        params = urllib.urlencode({'get_token': 'get_token'})
-        response = retrieve_url(baseURL % params)
-        j = json.loads(response)
-        token = j['token']
+  def search(self, what, cat='all'):
+    # Get token
+    baseURL = "https://torrentapi.org/pubapi_v2.php?%s"
+    params = urllib.urlencode({'get_token': 'get_token'})
+    response = retrieve_url(baseURL % params)
+    j = json.loads(response)
+    token = j['token']
 
-        # get JSON
+    # get JSON
 
-        what = urllib.unquote(what)
-        categories = "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48"
-        params = urllib.urlencode({'mode': 'search', 'search_string': what, 'ranked': 0,
-                                   'category': categories, 'limit': 100, 'sort': 'seeders',
-                                   'format': 'json_extended', 'token': token})
+    what = urllib.unquote(what)
+    categories = "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48"
+    params = urllib.urlencode({'mode': 'search',
+                               'search_string': what,
+                               'ranked': 0,
+                               'category': categories,
+                               'limit': 100,
+                               'sort': 'seeders',
+                               'format': 'json_extended',
+                               'token': token}
+                               )
 
-        response = retrieve_url(baseURL % params)
-        j = json.loads(response)
+    response = retrieve_url(baseURL % params)
+    j = json.loads(response)
 
-        for i in j['torrent_results']:
+    for i in j['torrent_results']:
 
-            tbytes = float(i['size'])
-            size = "-1"
+      tbytes = float(i['size'])
+      size = "-1"
 
-            if tbytes > 1024 * 1024 * 1024:
-                size = "%.1f GB" % (tbytes / (1024 * 1024 * 1024))
+      if tbytes > 1024 * 1024 * 1024:
+        size = "%.1f GB" % (tbytes / (1024 * 1024 * 1024))
 
-            elif tbytes > 1024 * 1024:
-                size = "%.1f MB" % (tbytes / (1024 * 1024))
+      elif tbytes > 1024 * 1024:
+        size = "%.1f MB" % (tbytes / (1024 * 1024))
 
-            elif tbytes > 1024:
-                size = "%.1f KB" % (tbytes / 1024)
+      elif tbytes > 1024:
+        size = "%.1f KB" % (tbytes / 1024)
 
-            else:
-                size = "%.1f B" % (tbytes)
+      else:
+        size = "%.1f B" % (tbytes)
 
-            res = dict(link=i['download'],
-                       name=i['title'],
-                       size=size,
-                       seeds=i['seeders'],
-                       leech=i['leechers'],
-                       engine_url=self.url,
-                       desc_link=i['info_page'])
+      res = dict(link=i['download'],
+                 name=i['title'],
+                 size=size,
+                 seeds=i['seeders'],
+                 leech=i['leechers'],
+                 engine_url=self.url,
+                 desc_link=i['info_page'])
 
-            prettyPrinter(res)
+      prettyPrinter(res)
