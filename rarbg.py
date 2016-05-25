@@ -1,4 +1,4 @@
-#VERSION: 1.11
+#VERSION: 1.12
 #AUTHORS: b0nk
 
 # Redistribution and use in source and binary forms, with or without
@@ -29,10 +29,11 @@ from novaprinter import prettyPrinter
 from helpers import retrieve_url, download_file
 import json
 
-try:    
+try:
   from urllib import urlencode, quote, unquote
 except ImportError:
   from urllib.parse import urlencode, quote, unquote
+
 
 class rarbg(object):
   url = 'https://rarbg.to'
@@ -46,16 +47,16 @@ class rarbg(object):
   def search(self, what, cat='all'):
     # Get token
     baseURL = "https://torrentapi.org/pubapi_v2.php?%s"
-    params = urllib.urlencode({'get_token': 'get_token'})
+    params = urlencode({'get_token': 'get_token'})
     response = retrieve_url(baseURL % params)
     j = json.loads(response)
     token = j['token']
 
     # get JSON
 
-    what = urllib.unquote(what)
+    what = unquote(what)
     categories = "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48"
-    params = urllib.urlencode({'mode': 'search',
+    params = urlencode({'mode': 'search',
                                'search_string': what,
                                'ranked': 0,
                                'category': categories,
