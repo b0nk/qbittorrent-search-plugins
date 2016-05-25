@@ -1,4 +1,4 @@
-#VERSION: 1.10
+#VERSION: 1.11
 #AUTHORS: b0nk
 
 # Redistribution and use in source and binary forms, with or without
@@ -27,9 +27,12 @@
 
 from novaprinter import prettyPrinter
 from helpers import retrieve_url, download_file
-import urllib
 import json
 
+try:    
+  from urllib import urlencode, quote, unquote
+except ImportError:
+  from urllib.parse import urlencode, quote, unquote
 
 class rarbg(object):
   url = 'https://rarbg.to'
