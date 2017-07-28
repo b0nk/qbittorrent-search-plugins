@@ -1,4 +1,4 @@
-#VERSION: 1.12
+#VERSION: 1.13
 #AUTHORS: b0nk
 
 # Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@
 from novaprinter import prettyPrinter
 from helpers import retrieve_url, download_file
 import json
+from time import sleep
 
 try:
   from urllib import urlencode, quote, unquote
@@ -51,6 +52,8 @@ class rarbg(object):
     response = retrieve_url(baseURL % params)
     j = json.loads(response)
     token = j['token']
+
+    sleep(2.1)
 
     # get JSON
 
