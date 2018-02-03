@@ -37,7 +37,7 @@ except ImportError:
 
 
 class rarbg(object):
-  url = 'https://rarbg.to'
+  url = 'https://rarbg.is'
   name = 'rarbg (torrentApi)'
 
   supported_categories = {'all': ''}
