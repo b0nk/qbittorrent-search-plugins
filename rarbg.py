@@ -1,4 +1,4 @@
-#VERSION: 1.13
+#VERSION: 1.14
 #AUTHORS: b0nk
 
 # Redistribution and use in source and binary forms, with or without
@@ -48,7 +48,7 @@ class rarbg(object):
   def search(self, what, cat='all'):
     # Get token
     baseURL = "https://torrentapi.org/pubapi_v2.php?%s"
-    params = urlencode({'get_token': 'get_token'})
+    params = urlencode({'get_token': 'get_token', 'app_id' : None})
     response = retrieve_url(baseURL % params)
     j = json.loads(response)
     token = j['token']
@@ -59,15 +59,17 @@ class rarbg(object):
 
     what = unquote(what)
     categories = "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48"
-    params = urlencode({'mode': 'search',
-                               'search_string': what,
-                               'ranked': 0,
-                               'category': categories,
-                               'limit': 100,
-                               'sort': 'seeders',
-                               'format': 'json_extended',
-                               'token': token}
-                               )
+    params = urlencode({
+                        'mode': 'search',
+                        'search_string': what,
+                        'ranked': 0,
+                        'category': categories,
+                        'limit': 100,
+                        'sort': 'seeders',
+                        'format': 'json_extended',
+                        'token': token,
+                        'app_id' : None
+                        })
 
     response = retrieve_url(baseURL % params)
     j = json.loads(response)
