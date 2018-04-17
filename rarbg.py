@@ -1,4 +1,4 @@
-#VERSION: 1.14
+#VERSION: 1.3
 #AUTHORS: b0nk
 
 # Redistribution and use in source and binary forms, with or without
@@ -31,16 +31,22 @@ import json
 from time import sleep
 
 try:
+  # python2
   from urllib import urlencode, quote, unquote
 except ImportError:
+  # python3
   from urllib.parse import urlencode, quote, unquote
 
 
 class rarbg(object):
   url = 'https://rarbg.is'
   name = 'rarbg (torrentApi)'
-
-  supported_categories = {'all': ''}
+  supported_categories = {'all': '1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48',
+                          'movies': 'movies',
+                          'tv': 'tv',
+                          'music': '1;23;24;25;26',
+                          'games': '1;27;28;29;30;31;32;40',
+                          'software': '1;33;34;43'}
 
   def __init__(self):
     pass
@@ -58,12 +64,12 @@ class rarbg(object):
     # get JSON
 
     what = unquote(what)
-    categories = "1;4;14;15;16;17;21;22;42;18;19;41;27;28;29;30;31;32;40;23;24;25;26;33;34;43;44;45;46;47;48"
+    category = self.supported_categories[cat]
     params = urlencode({
                         'mode': 'search',
                         'search_string': what,
                         'ranked': 0,
-                        'category': categories,
+                        'category': category,
                         'limit': 100,
                         'sort': 'seeders',
                         'format': 'json_extended',
