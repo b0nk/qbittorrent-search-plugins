@@ -1,4 +1,4 @@
-#VERSION: 1.3
+#VERSION: 1.20
 #AUTHORS: b0nk
 
 # Redistribution and use in source and binary forms, with or without
