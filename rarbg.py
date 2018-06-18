@@ -54,7 +54,7 @@ class rarbg(object):
   def search(self, what, cat='all'):
     # Get token
     baseURL = "https://torrentapi.org/pubapi_v2.php?%s"
-    params = urlencode({'get_token': 'get_token', 'app_id' : None})
+    params = urlencode({'get_token': 'get_token', 'app_id' : 'qbittorrent'})
     response = retrieve_url(baseURL % params)
     j = json.loads(response)
     token = j['token']
@@ -74,7 +74,7 @@ class rarbg(object):
                         'sort': 'seeders',
                         'format': 'json_extended',
                         'token': token,
-                        'app_id' : None
+                        'app_id' : 'qbittorrent'
                         })
 
     response = retrieve_url(baseURL % params)
